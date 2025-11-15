@@ -2,18 +2,10 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] public float chance = 0;
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] public float chance = 0f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] public int programming = 0;
+    [SerializeField] public int art = 0;
+    [SerializeField] public int writing = 0;
+
 }
