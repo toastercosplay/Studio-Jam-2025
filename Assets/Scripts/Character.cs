@@ -8,4 +8,6 @@ public class Character : MonoBehaviour
     [SerializeField] public int art = 0;
     [SerializeField] public int writing = 0;
 
+    public CharacterSlot currentSlot;
+
 }
