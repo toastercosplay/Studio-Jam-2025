@@ -72,7 +72,7 @@ public class ImageSelect : MonoBehaviour
                 myself.writing >= mapping.writingRange.x && myself.writing <= mapping.writingRange.y)
             {
                 targetImage.sprite = mapping.sprite;
-                myself.setStars(mapping.stars);
+                //myself.setStars(mapping.stars);
                 //Debug.Log($"Matched {mapping.name}");
                 return;
             }

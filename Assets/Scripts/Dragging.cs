@@ -88,6 +88,11 @@ public class Dragging : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             targetScale = originalScale * scaleMultiplier;
         }
+
+        if (transform.parent != null)
+        {
+            transform.parent.SetAsLastSibling();
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5720023879233099078}
   - component: {fileID: 244105408108131845}
   - component: {fileID: 680068826253506675}
+  - component: {fileID: 7310336341821756518}
   m_Layer: 5
   m_Name: GeneralCharacter
   m_TagString: Untagged
@@ -158,3 +159,24 @@ MonoBehaviour:
   pinkCapsule: {fileID: 21300000, guid: 99d1b585906dedd4ea6d4980b38eaa3b, type: 3}
   yellowCapsule: {fileID: 21300000, guid: e8a1bd380693d1a45b0cf6dfe9ebc728, type: 3}
   greenCapsule: {fileID: 0}
+--- !u!114 &7310336341821756518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8610993081237646959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9897c3bee530f4d409da5f6e4ac831f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatDotGenerator
+  character: {fileID: 0}
+  blueDotPrefab: {fileID: 6090609628559261420, guid: f4013edd38f991b45a2e0d2570de1dc1, type: 3}
+  pinkDotPrefab: {fileID: 7342392276700505478, guid: 85c674a60c7f75543869e21655b624c1, type: 3}
+  yellowDotPrefab: {fileID: 6813749075451390759, guid: 0c3077055a6dafd4ab1b23c732ec26dc, type: 3}
+  dotSpacing: 7
+  programmingStart: {x: -37, y: -35}
+  artStart: {x: -37, y: -50}
+  writingStart: {x: -37, y: -65}
+  dotParent: {fileID: 0}

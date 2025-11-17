@@ -15,5 +15,4 @@ public class Character : MonoBehaviour
     {
         stars = count;
     }
-
 }

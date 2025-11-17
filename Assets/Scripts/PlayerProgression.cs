@@ -31,6 +31,7 @@ public class CharacterData
     public int programming;
     public int art;
     public int writing;
+    public int stars;
 }
 
 [System.Serializable]

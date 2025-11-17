@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CharacterStatOption
 {
     public Vector3Int stats; // x = programming, y = art, z = writing
+    public int stars;
     public float chance;
 }
 
@@ -21,7 +22,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public List<Character> activeCharacters = new List<Character>();
 
-    void Awake() => Instance = this;
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -29,7 +33,7 @@ public class GameManager : MonoBehaviour
             PlayerProgression.Instance.savedCharacters.Count == 0)
         {
             GenerateCharacters();
-            SaveCharactersToProgression();
+            //SaveCharactersToProgression();
         }
         else
         {
@@ -45,35 +49,30 @@ public class GameManager : MonoBehaviour
         PlayerProgression.Instance.savedCharacters.Clear();
 
         for (int i = 0; i < pullCount; i++)
-    {
-        Vector3Int selectedStats = PickRandomStats();
-
-        // create character object
-        Character instance = Instantiate(generalCharacterPrefab);
-
-        instance.programming = selectedStats.x;
-        instance.art = selectedStats.y;
-        instance.writing = selectedStats.z;
-
-        // save stats to permanent storage
-        CharacterData data = new CharacterData()
         {
-            programming = selectedStats.x,
-            art = selectedStats.y,
-            writing = selectedStats.z
-        };
-        PlayerProgression.Instance.savedCharacters.Add(data);
+            var chosen = PickRandomStats();
+            Vector3Int stats = chosen.stats;
+            int stars = chosen.stars;
 
-        // put character in slot
-        Transform slot = slots[i];
-        AssignCharacterToSlot(instance, slot, slot.GetComponent<CharacterSlot>());
-        activeCharacters.Add(instance);
-    }
+            // Instantiate character
+            Character instance = Instantiate(generalCharacterPrefab);
+            instance.programming = stats.x;
+            instance.art = stats.y;
+            instance.writing = stats.z;
+            instance.setStars(stars);
+
+            //Debug.Log($"Generated character with stats: P:{instance.programming} A:{instance.art} W:{instance.writing} Stars:{instance.stars}");
+
+            // Assign to slot
+            Transform slot = slots[i];
+            AssignCharacterToSlot(instance, slot, slot.GetComponent<CharacterSlot>());
+            activeCharacters.Add(instance);
+        }
+        SaveCharactersToProgression();
     }
 
-    Vector3Int PickRandomStats()
+    private (CharacterStatOption option, Vector3Int stats, int stars) PickRandomStats()
     {
-        // sum all chances
         float totalChance = 0f;
         foreach (var option in statOptions)
             totalChance += option.chance;
@@ -85,11 +84,14 @@ public class GameManager : MonoBehaviour
         {
             cumulative += option.chance;
             if (roll <= cumulative)
-                return option.stats;
+            {
+                //Debug.Log($"Chosen stats: {option.stats} stars: {option.stars}");
+                return (option, option.stats, option.stars);
+            }
         }
 
-        // fallback: last option
-        return statOptions[statOptions.Count - 1].stats;
+        var last = statOptions[statOptions.Count - 1];
+        return (last, last.stats, last.stars);
     }
 
     public void FuseCharacters(Character a, Character b)
@@ -105,13 +107,27 @@ public class GameManager : MonoBehaviour
         Character fused = Instantiate(generalCharacterPrefab);
 
         // fusion formula
-        fused.programming = Mathf.RoundToInt((a.programming + b.programming) * 0.8f);
-        fused.art = Mathf.RoundToInt((a.art * 0.5f + b.art * 0.5f) + 2);
-        fused.writing = Mathf.Max(a.writing, b.writing);
-        fused.chance = (a.chance + b.chance) * 0.5f;
+
+        if (a.programming == b.programming && a.art == b.art && a.writing == b.writing && a.stars == b.stars)
+        {
+            fused.setStars(a.stars + 1);
+            fused.programming = a.programming * (a.stars+ 1);
+            fused.art = a.art * (a.stars+ 1);
+            fused.writing = a.writing * (a.stars+ 1);
+        }
+        else
+        {
+            fused.programming = a.programming + b.programming;
+            fused.art = a.art + b.art;
+            fused.writing = a.writing + b.writing;
+            fused.setStars(Mathf.Max(a.stars, b.stars));
+            Debug.Log(fused.programming + " " + fused.art + " " + fused.writing + " " + fused.stars);
+        }
 
         AssignCharacterToSlot(fused, targetSlot.transform, targetSlot);
         activeCharacters.Add(fused);
+
+        SaveCharactersToProgression();
     }
 
     public void AssignCharacterToSlot(Character character, Transform slotTransform, CharacterSlot slot)
@@ -131,42 +147,41 @@ public class GameManager : MonoBehaviour
         activeCharacters.Clear();
     }
 
-    void SaveCharactersToProgression()
+    private void SaveCharactersToProgression()
     {
         PlayerProgression.Instance.savedCharacters.Clear();
 
         foreach (Character c in activeCharacters)
         {
-            CharacterData data = new CharacterData();
-            data.programming = c.programming;
-            data.art = c.art;
-            data.writing = c.writing;
-
+            CharacterData data = new CharacterData
+            {
+                programming = c.programming,
+                art = c.art,
+                writing = c.writing,
+                stars = c.stars
+            };
             PlayerProgression.Instance.savedCharacters.Add(data);
         }
     }
 
-    void LoadCharactersFromProgression()
+    private void LoadCharactersFromProgression()
     {
         ClearCharacters();
 
-        int index = 0;
-
-        foreach (CharacterData data in PlayerProgression.Instance.savedCharacters)
+        for (int i = 0; i < PlayerProgression.Instance.savedCharacters.Count; i++)
         {
+            CharacterData data = PlayerProgression.Instance.savedCharacters[i];
             Character instance = Instantiate(generalCharacterPrefab);
 
             instance.programming = data.programming;
             instance.art = data.art;
             instance.writing = data.writing;
+            instance.setStars(data.stars);
 
-            Transform slot = slots[index];
-            CharacterSlot slotScript = slot.GetComponent<CharacterSlot>();
-            AssignCharacterToSlot(instance, slot, slotScript);
-
+            Transform slot = slots[i];
+            AssignCharacterToSlot(instance, slot, slot.GetComponent<CharacterSlot>());
             activeCharacters.Add(instance);
-
-            index++;
         }
     }
 }
+
