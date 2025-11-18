@@ -3,27 +3,29 @@ using UnityEngine.EventSystems;
 
 public class SelectionSlot : MonoBehaviour, IDropHandler
 {
-    ConflictManager conflictManager;
-    public GameData targetGame;// assign the game to test against
+    private ConflictManager conflictManager;
 
     void Start()
     {
-        conflictManager = GetComponent<ConflictManager>();
+        //find ConflictManager anywhere in the scene
+        conflictManager = FindFirstObjectByType<ConflictManager>();
+
+        if (conflictManager == null)
+            Debug.LogError("SelectionSlot: No ConflictManager found in the scene!");
     }
 
-    //called when something is dropped on this slot
     public void OnDrop(PointerEventData eventData)
     {
-        //Debug.Log("Something dropped on selection slot.");
-        // Check if what was dropped has a Character component
+        //get dropped object and check if it's a Character
         Character droppedCharacter = eventData.pointerDrag?.GetComponent<Character>();
 
-        if (droppedCharacter != null)
-        {
-            //Debug.Log($"Character {droppedCharacter.name} dropped on selection slot!");
+        if (droppedCharacter == null)
+            return;
 
-            //sdtart the conflict using the ConflictManager
-            conflictManager.StartConflict(droppedCharacter, targetGame);
-        }
+        //Debug.Log($"Character {droppedCharacter.name} dropped on selection slot!");
+
+        //start the conflict with the dropped champion
+        conflictManager.StartConflict(droppedCharacter);
     }
 }
+

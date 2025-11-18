@@ -3,14 +3,17 @@ using System.Collections.Generic;
 
 public class PlayerProgression : MonoBehaviour
 {
-    public static PlayerProgression Instance;//there can only be one
+    public static PlayerProgression Instance;
 
-    public int currentDifficulty = 1;
+    public int currentDifficulty = 0;
     public int coins = 0;
     public int gamesCompleted = 0;
 
     public List<CharacterData> savedCharacters = new List<CharacterData>();
+
     public GameData savedGame;
+
+    public List<float> statChances = new List<float>();
 
     void Awake()
     {
@@ -22,6 +25,25 @@ public class PlayerProgression : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void EnsureChanceListSize(int requiredCount, List<CharacterStatOption> defaultOptions)
+    {
+        //first-time setup: list is empty
+        if (statChances.Count == 0)
+        {
+            statChances.Clear();
+            foreach (var option in defaultOptions)
+                statChances.Add(option.chance); // copy initial chance values
+            return;
+        }
+
+        //if size mismatches (e.g., you add a new tier), fix it cleanly
+        while (statChances.Count < requiredCount)
+            statChances.Add(defaultOptions[statChances.Count].chance);
+
+        while (statChances.Count > requiredCount)
+            statChances.RemoveAt(statChances.Count - 1);
     }
 }
 
@@ -42,5 +64,3 @@ public class GameData
     public int writing;
     public int diffTier;
 }
-
-
