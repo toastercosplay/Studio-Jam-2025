@@ -30,6 +30,7 @@ public class ImageSelect : MonoBehaviour
 
     void Start()
     {
+        
         m_Scene = SceneManager.GetActiveScene();
         sceneName = m_Scene.name;
         
@@ -67,13 +68,16 @@ public class ImageSelect : MonoBehaviour
 
         foreach (var mapping in mappings) //special mapping
         {
+            //Debug.Log($"Checking mapping: Prog {mapping.progRange.x}-{mapping.progRange.y}, Art {mapping.artRange.x}-{mapping.artRange.y}, Writing {mapping.writingRange.x}-{mapping.writingRange.y}");
+            
+            
             if (myself.programming >= mapping.progRange.x && myself.programming <= mapping.progRange.y &&
                 myself.art >= mapping.artRange.x && myself.art <= mapping.artRange.y &&
                 myself.writing >= mapping.writingRange.x && myself.writing <= mapping.writingRange.y)
             {
                 targetImage.sprite = mapping.sprite;
                 //myself.setStars(mapping.stars);
-                //Debug.Log($"Matched {mapping.name}");
+                //Debug.Log($"Matched sprite: {mapping.sprite.name}");
                 return;
             }
         }
