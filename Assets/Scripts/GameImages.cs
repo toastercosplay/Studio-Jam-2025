@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 [System.Serializable]
 public class StatGameMapping
@@ -17,21 +18,33 @@ public class GameImages : MonoBehaviour
 
     void Start()
     {
-        if (myself == null) myself = GetComponent<Game>();
-        if (targetImage == null) targetImage = GetComponent<Image>();
+        myself = GetComponent<Game>();
+        targetImage = GetComponent<Image>();
 
+        StartCoroutine(DelayedUpdate());
+    }
+
+    IEnumerator DelayedUpdate()
+    {
+        yield return null; //wait 1 frame
         UpdateImage();
     }
 
     public void UpdateImage()
     {
+        GameData data = PlayerProgression.Instance.savedGame;
+
+        //fallback to Game component if savedGame is null
+        int prog = data != null ? data.programming : myself.programming;
+        int art  = data != null ? data.art        : myself.art;
+        int write= data != null ? data.writing    : myself.writing;
+
         foreach (var mapping in mappings)
         {
-            if (myself.programming == mapping.stats.x &&
-                myself.art == mapping.stats.y &&
-                myself.writing == mapping.stats.z)
+            if (prog == mapping.stats.x &&
+                art == mapping.stats.y &&
+                write == mapping.stats.z)
             {
-                //pick a random sprite from the list
                 if (mapping.sprites.Count > 0)
                 {
                     targetImage.sprite = mapping.sprites[Random.Range(0, mapping.sprites.Count)];
@@ -40,6 +53,7 @@ public class GameImages : MonoBehaviour
             }
         }
 
-        Debug.LogWarning("No matching sprite for this game");
+        Debug.LogWarning("No matching sprite for game stats: " +
+            $"P:{prog} A:{art} W:{write}");
     }
 }

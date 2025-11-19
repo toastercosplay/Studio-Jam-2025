@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public Transform[] slots = new Transform[10];
 
     int pullCount = 10;
-    public int pullCost = 30;
+    public int pullCost;
 
     public static GameManager Instance;
     public List<Character> activeCharacters = new List<Character>();
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         bool needGeneration = false;
+        pullCost = PlayerProgression.Instance.pullCost;
 
         if (PlayerProgression.Instance.savedCharacters == null || 
             PlayerProgression.Instance.savedCharacters.Count < pullCount)
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
 
     public void FuseCharacters(Character a, Character b)
     {
-        Debug.Log($"Fusing characters: A(P:{a.programming} A:{a.art} W:{a.writing} S:{a.stars}) + B(P:{b.programming} A:{b.art} W:{b.writing} S:{b.stars})");
+        //Debug.Log($"Fusing characters: A(P:{a.programming} A:{a.art} W:{a.writing} S:{a.stars}) + B(P:{b.programming} A:{b.art} W:{b.writing} S:{b.stars})");
         
         
         CharacterSlot targetSlot = a.currentSlot;
@@ -155,7 +156,7 @@ public class GameManager : MonoBehaviour
             fused.writing = a.writing + b.writing;
             fused.setStars(Mathf.Max(a.stars, b.stars));
         }
-        Debug.Log(fused.programming + " " + fused.art + " " + fused.writing + " " + fused.stars);
+        //Debug.Log(fused.programming + " " + fused.art + " " + fused.writing + " " + fused.stars);
         AssignCharacterToSlot(fused, targetSlot.transform, targetSlot);
         activeCharacters.Add(fused);
 
@@ -239,6 +240,8 @@ public class GameManager : MonoBehaviour
             //Debug.Log("Not enough coins to pull characters!");
             return;
         }
+
+        PlayerProgression.Instance.coins -= pullCost;
         
         ClearCharacters();
 

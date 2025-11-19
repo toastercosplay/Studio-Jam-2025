@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StatDotGenerator : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class StatDotGenerator : MonoBehaviour
     public Vector2 writingStart = new Vector2(0, -80);
 
     public RectTransform dotParent; // UI parent
+
+    Scene m_Scene;
+    string sceneName;
 
     void Start()
     {
@@ -29,9 +33,12 @@ public class StatDotGenerator : MonoBehaviour
             Destroy(dotParent.GetChild(i).gameObject);
 
         // 3 rows
-        SpawnRowBlue(character.programming, programmingStart);
-        SpawnRowPink(character.art, artStart);
-        SpawnRowYellow(character.writing, writingStart);
+        if(sceneName != "GachaScene")
+        {
+            SpawnRowBlue(character.programming, programmingStart);
+            SpawnRowPink(character.art, artStart);
+            SpawnRowYellow(character.writing, writingStart);
+        }
     }
 
     void SpawnRowYellow(int count, Vector2 startOffset)
@@ -46,8 +53,6 @@ public class StatDotGenerator : MonoBehaviour
                 startOffset.x + (i * dotSpacing),
                 startOffset.y
             );
-
-            //dot.AddComponent<DotHoverGrow>(); // optional hover effect
         }
     }
     void SpawnRowBlue(int count, Vector2 startOffset)
@@ -62,8 +67,6 @@ public class StatDotGenerator : MonoBehaviour
                 startOffset.x + (i * dotSpacing),
                 startOffset.y
             );
-
-            //dot.AddComponent<DotHoverGrow>(); // optional hover effect
         }
     }
     void SpawnRowPink(int count, Vector2 startOffset)
@@ -78,8 +81,6 @@ public class StatDotGenerator : MonoBehaviour
                 startOffset.x + (i * dotSpacing),
                 startOffset.y
             );
-
-            //dot.AddComponent<DotHoverGrow>(); // optional hover effect
         }
     }
 }

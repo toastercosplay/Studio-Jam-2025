@@ -16,7 +16,7 @@ public class CharacterSlot : MonoBehaviour, IDropHandler
 
         Character droppedChar = dropped.character;
 
-        // if slot empty, just place the character
+        //if slot empty, just place the character
         if (myCharacter == null)
         {
             myCharacter = droppedChar;
@@ -25,7 +25,7 @@ public class CharacterSlot : MonoBehaviour, IDropHandler
             return;
         }
 
-        // otherwise  fuse existing and dropped
+        //otherwise  fuse existing and dropped
         Character existing = myCharacter;
         GameManager.Instance.FuseCharacters(existing, droppedChar);
     }

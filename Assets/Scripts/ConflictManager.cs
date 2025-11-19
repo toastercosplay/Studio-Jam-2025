@@ -65,17 +65,22 @@ public class ConflictManager : MonoBehaviour
         // pick random template
         GameTemplate template = possibleGames[Random.Range(0, possibleGames.Count)];
 
-        //Debug.Log($"Selected game template: P:{template.programming} A:{template.art} W:{template.writing}");
-
         GameData g = new GameData();
         g.programming = template.programming;
         g.art = template.art;
         g.writing = template.writing;
         g.diffTier = diff;
 
+        //save the new persistent game data
         PlayerProgression.Instance.savedGame = g;
 
-        //Debug.Log($"Generated game from template: P:{g.programming} A:{g.art} W:{g.writing}");
+        //immediately sync the scene's Game component
+        game.programming = g.programming;
+        game.art = g.art;
+        game.writing = g.writing;
+
+        //update UI immediately so Start() calls don’t see zeros
+        dotDisplay.RegenerateDots();
     }
 
     public void StartConflict(Character champ)

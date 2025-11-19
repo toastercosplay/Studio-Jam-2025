@@ -32,8 +32,8 @@ RectTransform:
   m_GameObject: {fileID: 8610993081237646959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -177,23 +177,88 @@ MonoBehaviour:
     stars: 2
   - progRange: {x: 1, y: 2}
     artRange: {x: 1, y: 2}
-    writingRange: {x: 0, y: 0}
+    writingRange: {x: 0, y: 1}
     sprite: {fileID: 21300000, guid: 4582e5993cf9cda4e83b76c5f95f8f49, type: 3}
     stars: 2
-  - progRange: {x: 0, y: 0}
+  - progRange: {x: 0, y: 1}
     artRange: {x: 1, y: 2}
     writingRange: {x: 1, y: 2}
     sprite: {fileID: 21300000, guid: c88357bc5d003ea49af180f4a9c074bc, type: 3}
     stars: 2
   - progRange: {x: 1, y: 2}
-    artRange: {x: 0, y: 0}
+    artRange: {x: 0, y: 1}
     writingRange: {x: 1, y: 2}
     sprite: {fileID: 21300000, guid: ecfeb6d0960fa0b48b70adeb4e682814, type: 3}
     stars: 2
+  - progRange: {x: 2, y: 3}
+    artRange: {x: 2, y: 3}
+    writingRange: {x: 2, y: 3}
+    sprite: {fileID: 21300000, guid: f6d3f72bec145dc41af4d090919416ba, type: 3}
+    stars: 2
+  - progRange: {x: 3, y: 6}
+    artRange: {x: 3, y: 6}
+    writingRange: {x: 0, y: 2}
+    sprite: {fileID: 21300000, guid: ddd1c8158cb2fdd418ededd68a769225, type: 3}
+    stars: 3
+  - progRange: {x: 0, y: 2}
+    artRange: {x: 3, y: 6}
+    writingRange: {x: 3, y: 6}
+    sprite: {fileID: 21300000, guid: dd500723f4a6216419fd65aee10599ab, type: 3}
+    stars: 3
+  - progRange: {x: 3, y: 6}
+    artRange: {x: 0, y: 2}
+    writingRange: {x: 3, y: 6}
+    sprite: {fileID: 21300000, guid: c013c5927ea4d12438ce257bd9a6ea64, type: 3}
+    stars: 3
+  - progRange: {x: 4, y: 9}
+    artRange: {x: 0, y: 0}
+    writingRange: {x: 0, y: 0}
+    sprite: {fileID: 21300000, guid: b291f4e92a5db7b41bcb8daeaf99246c, type: 3}
+    stars: 3
+  - progRange: {x: 0, y: 0}
+    artRange: {x: 4, y: 9}
+    writingRange: {x: 0, y: 0}
+    sprite: {fileID: 21300000, guid: 1a3b6f46b344dad458b55ecc65bf10c9, type: 3}
+    stars: 3
+  - progRange: {x: 0, y: 0}
+    artRange: {x: 0, y: 0}
+    writingRange: {x: 4, y: 9}
+    sprite: {fileID: 21300000, guid: b6cf7d258f938bd4faf3d75d13c9aa07, type: 3}
+    stars: 3
+  - progRange: {x: 10, y: 25}
+    artRange: {x: 0, y: 0}
+    writingRange: {x: 0, y: 0}
+    sprite: {fileID: 21300000, guid: da1c18713f6faae41ac8190d5460728f, type: 3}
+    stars: 4
+  - progRange: {x: 0, y: 0}
+    artRange: {x: 10, y: 25}
+    writingRange: {x: 0, y: 0}
+    sprite: {fileID: 21300000, guid: fd29b74841ceb6f4981e8274daa423ec, type: 3}
+    stars: 4
+  - progRange: {x: 0, y: 0}
+    artRange: {x: 0, y: 0}
+    writingRange: {x: 10, y: 25}
+    sprite: {fileID: 21300000, guid: 4d1b2a0f126153f40ac306ba137926ea, type: 3}
+    stars: 4
+  - progRange: {x: 7, y: 25}
+    artRange: {x: 7, y: 25}
+    writingRange: {x: 0, y: 6}
+    sprite: {fileID: 21300000, guid: 35daf85ccdac9244ca435310b250f894, type: 3}
+    stars: 4
+  - progRange: {x: 0, y: 6}
+    artRange: {x: 7, y: 25}
+    writingRange: {x: 7, y: 25}
+    sprite: {fileID: 21300000, guid: a6837ef37cb733345b8d083121fed849, type: 3}
+    stars: 4
+  - progRange: {x: 7, y: 25}
+    artRange: {x: 0, y: 6}
+    writingRange: {x: 7, y: 25}
+    sprite: {fileID: 21300000, guid: 00a4a7b9ef1ad4e488a6986eaf81f3d4, type: 3}
+    stars: 4
   blueCapsule: {fileID: 21300000, guid: 103bda37c1d84c54ab623696c3c0a7a4, type: 3}
   pinkCapsule: {fileID: 21300000, guid: 99d1b585906dedd4ea6d4980b38eaa3b, type: 3}
   yellowCapsule: {fileID: 21300000, guid: e8a1bd380693d1a45b0cf6dfe9ebc728, type: 3}
-  greenCapsule: {fileID: 0}
+  greenCapsule: {fileID: 21300000, guid: 70b61dfd267fff347b453f999c7c473a, type: 3}
 --- !u!114 &7310336341821756518
 MonoBehaviour:
   m_ObjectHideFlags: 0

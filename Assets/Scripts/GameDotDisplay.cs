@@ -12,7 +12,7 @@ public class GameDotDisplay : MonoBehaviour
     public Vector2 artStart = new Vector2(0, -40);
     public Vector2 writingStart = new Vector2(0, -80);
 
-    public RectTransform dotParent; // UI parent
+    public RectTransform dotParent; //UI parent
 
     void Start()
     {
@@ -24,14 +24,19 @@ public class GameDotDisplay : MonoBehaviour
 
     public void RegenerateDots()
     {
-        // delete previous UI dots
+        GameData data = PlayerProgression.Instance.savedGame;
+
+        int prog = data != null ? data.programming : game.programming;
+        int art  = data != null ? data.art        : game.art;
+        int write= data != null ? data.writing    : game.writing;
+
+        //delete previous UI dots
         for (int i = dotParent.childCount - 1; i >= 0; i--)
             Destroy(dotParent.GetChild(i).gameObject);
 
-        // 3 rows
-        SpawnRowBlue(game.programming, programmingStart);
-        SpawnRowPink(game.art, artStart);
-        SpawnRowYellow(game.writing, writingStart);
+        SpawnRowBlue(prog, programmingStart);
+        SpawnRowPink(art, artStart);
+        SpawnRowYellow(write, writingStart);
     }
 
     void SpawnRowYellow(int count, Vector2 startOffset)

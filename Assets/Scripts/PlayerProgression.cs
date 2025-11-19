@@ -6,7 +6,8 @@ public class PlayerProgression : MonoBehaviour
     public static PlayerProgression Instance;
 
     public int currentDifficulty = 0;
-    public int coins = 0;
+    public int coins = 20;
+    public int pullCost = 30;
     public int gamesCompleted = 0;
 
     public List<CharacterData> savedCharacters = new List<CharacterData>();
@@ -22,6 +23,8 @@ public class PlayerProgression : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        coins = 20;
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
